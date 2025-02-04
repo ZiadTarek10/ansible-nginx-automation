@@ -1,0 +1,26 @@
+    - name : play1
+      hosts: webservers
+      tasks:
+        - name: Update Cache
+          ansible.builtin.apt:
+            update_cache: yes
+    
+      
+  
+        - name: installing nginx
+          apt: 
+                name : nginx 
+                state : latest
+
+   
+        - name: Copying Index.html
+          copy: 
+            src : ./index.html 
+            dest : /var/www/html/index.html
+
+    
+        - name: Restart nginx service
+          service: 
+            name: nginx
+            state: restarted
+            use: service
